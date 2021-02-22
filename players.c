@@ -10,11 +10,6 @@
 #include <string.h>
 #include "players.h"
 
-//Array of players **We probably will have to move this to jeopardy.c
-struct player players[4];
-
-// Number of players
-int num_players = 4;
 
 // Returns true if the player name matches one of the existing players
 bool player_exists(player *players, int num_players, char *name)
