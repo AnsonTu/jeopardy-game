@@ -11,8 +11,7 @@
 #include "questions.h"
 
 // Initializes the array of questions for the game
-void initialize_game(void)
-{
+void initialize_game(void) {
     // initialize each question struct and assign it to the questions array
     //programming category
     strcpy(questions[0].category, "programming");
@@ -42,13 +41,13 @@ void initialize_game(void)
     //algorithms category
     strcpy(questions[4].category, "algorithms");
     strcpy(questions[4].question, "Searching in this tree has the worst case complexity of O(n)");
-    strcpy(questions[4].answer, "binary search tree");
+    strcpy(questions[4].answer, "BST");
     questions[4].value=200;
     questions[4].answered=false;
 
     strcpy(questions[5].category, "algorithms");
-    strcpy(questions[5].question, "is the worst-case performance of MergeSort");
-    strcpy(questions[5].answer, "O(n log n)");
+    strcpy(questions[5].question, "Is the worst-case performance of MergeSort");
+    strcpy(questions[5].answer, "O(nlogn)");
     questions[5].value=400;
     questions[5].answered=false;
 
@@ -91,84 +90,76 @@ void initialize_game(void)
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
-void display_categories(void)
-{
+void display_categories(void) {
     // print categories and dollar values for each unanswered question in questions array
-    int width = 20;
-    for (int i = 0; i < 3; ++i) {
-		putchar('+');
-		for (int j = 0; j < width; ++j)
-			putchar('-');
-	}
-	printf("+\n");
+    char g[12][20];
 
-    for(int i = 0; i < 12; i++) {
-		if(questions[i].answered == false) {
-			printf("| $&-*d", width - 2, questions[i].value);
-		} else {
-			printf("| %-*s", width - 2, " - ");
-		}
+    for (int i = 0; i < 12; i++) {
+        if (questions[i].answered == false) {
+            snprintf(g[i], 20, "%d", questions[i].value);
+        } else {
+            strcpy(g[i], "   ");
+        }   
+    }
+    
+    printf("   %s   |   %s   |   %s   \n", categories[0], categories[1], categories[2]);
+    printf("  -------------------------------------------------\n");
 
-		if(i % 3 == 2)
-			printf("|\n");
-	}
+    printf("      %s      |     %s     |         %s   \n", g[0], g[4], g[8]);
+    printf("  -------------------------------------------------\n");
+    
+    printf("      %s      |     %s     |         %s   \n", g[1], g[5], g[9]);
+    printf("  -------------------------------------------------\n");
+    
+    printf("      %s      |     %s     |         %s   \n", g[2], g[6], g[10]);
+    printf("  -------------------------------------------------\n");
 
-	for(int i = 0; i < 3; i++) 
-		printf("| %-*s", width - 1, categories[i]);
-	printf("|\n");
-
-	for (int i = 0; i < 3; ++i) {
-		putchar('+');
-		for (int j = 0; j < width; ++j)
-			putchar('-');
-	}
-
-	for (int i = 0; i < 3; ++i) {
-		putchar('+');
-		for (int j = 0; j < width; ++j)
-			putchar('-');
-	}
+    printf("      %s      |     %s     |         %s   \n", g[3], g[7], g[11]);
+    printf("  -------------------------------------------------\n");
 }
 
 // Displays the question for the category and dollar value
-void display_question(char *category, int value)
-{
-for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
-			printf("Question: %s (%d)\n", questions[i].question, questions[i].value);
+void display_question(char *category, int value) {
+    for (int i = 0; i < 12; i++) {
+		if (strcmp(questions[i].category, category) == 0 && (questions[i].value == value)) {
+			printf("Question: %s (%d points)\n", questions[i].question, questions[i].value);
 		}
 	}
 }
 
 // Returns true if the answer is correct for the question for that category and dollar value
-bool valid_answer(char *category, int value, char *answer)
-{
+bool valid_answer(char *category, int value, char *answer) {
     bool is_valid;
 
 	for (int i = 0; i < 12; i++) {
-		if ((questions[i].category == category) && (questions[i].value == value)) {
+		if (strcmp(questions[i].category, category) == 0 && (questions[i].value == value)) {
 			if (strcmp(questions[i].answer, answer) == 0) {
-
 				is_valid = true;
-			
-			} else {
-				
+			} else {	
+                printf("Incorrect! The answer was %s.\n", questions[i].answer);
 				is_valid = false;
 			}
+            questions[i].answered = true;
 		}
 	}
 
 	return is_valid;
-
 }
 
 // Returns true if the question has already been answered
-bool already_answered(char *category, int value)
-{
-    for(int i = 0; i < 12; i++)
-		if (questions[i].value == value && strcmp(questions[i].category, category) == 0)
-			return questions[i].answered;
-
+bool already_answered(char *category, int value) {
     // lookup the question and see if it's already been marked as answered
+    for (int i = 0; i < 12; i++) {
+		if (questions[i].value == value && strcmp(questions[i].category, category) == 0) {
+            if (questions[i].answered) {
+                printf("This question has already been answered or attempted.\n");
+                return true;
+            }
+            return false;
+        }
+    }
+
+    // If the question wasn't found, either the category or value was incorrectly answered
+    printf("Incorrect category or points value entered.\n");
     return true;
 }
