@@ -15,6 +15,7 @@
 bool player_exists(player *players, int num_players, char *name)
 {   
     for(int i = 0; i < num_players; i++){
+        printf("Name: %s", *players[i].name);
         if(players[i].name == name){
             return true;
         }
@@ -30,4 +31,5 @@ void update_score(player *players, int num_players, char *name, int score)
         if(players[i].name == name){
             players[i].score = players[i].score + score;
         }
+}
 }
