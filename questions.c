@@ -53,13 +53,13 @@ void initialize_game(void) {
 
     strcpy(questions[6].category, "algorithms");
     strcpy(questions[6].question, "Also known as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.");
-    strcpy(questions[6].answer, "bubble sort");
+    strcpy(questions[6].answer, "bubble");
     questions[6].value=600;
     questions[6].answered=false;
 
     strcpy(questions[7].category, "algorithms");
-    strcpy(questions[7].question, "Developed by British computer scientist Tony Hoare in 1959 and published in 1961,  it can be somewhat faster than merge sort and about two or three times faster than heapsort");
-    strcpy(questions[7].answer, "quick sort");
+    strcpy(questions[7].question, "Sort developed by British computer scientist Tony Hoare in 1959 and published in 1961,  it can be somewhat faster than merge sort and about two or three times faster than heapsort");
+    strcpy(questions[7].answer, "quick");
     questions[7].value=800;
     questions[7].answered=false;
 
