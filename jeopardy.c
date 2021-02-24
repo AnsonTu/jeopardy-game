@@ -21,7 +21,7 @@
 
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
 void tokenize(char *input, char **tokens) {
-
+    char *token = strtok(input, " ");
 };
 
 // Displays the game results for each player, their name and final score, ranked from first to last place
@@ -30,7 +30,7 @@ void show_results(player *players, int num_players) {
     for (int i = 0; i < num_players-1; i++) {
         int tempIdx = i;
         for (int j = i+1; j < num_players; j++) {
-            if (players[tempIdx].score > players[j].score) {
+            if (players[tempIdx].score < players[j].score) {
                 tempIdx = j;
             }
         }
@@ -40,7 +40,7 @@ void show_results(player *players, int num_players) {
     }
     printf("FINAL RESULTS:\n");
     for (int i = 0; i < num_players; i++) {
-        printf("%s %d\n", players[i].name, players[i].score);
+        printf("%d: %s %d\n", i+1, players[i].name, players[i].score);
     }
 };
 
@@ -78,11 +78,11 @@ int main(int argc, char *argv[])
     while (fgets(buffer, BUFFER_LEN, stdin) != NULL)
     {
         // Call functions from the questions and players source files
-        display_categories();
 
         // Execute the game until all questions are answered
         int numOfAnsweredQuestions = 0;
         while (numOfAnsweredQuestions < 12) {
+            display_categories();
             char name[BUFFER_LEN] = { 0 };
             char category[BUFFER_LEN] = { 0 };
             char answer[BUFFER_LEN] = { 0 };
